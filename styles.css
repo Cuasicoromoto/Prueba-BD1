@@ -68,6 +68,26 @@ body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     background-color: var(--beige-crema);
     color: var(--texto);
+    /* Cambia height por min-height para permitir que el contenido fluya si es necesario */
+    min-height: 100dvh; 
+    width: 100vw;
+    /* Cambia hidden por auto o scroll para habilitar el gesto de refresco */
+    overflow-y: auto; 
+    /* Esta propiedad ayuda a que el scroll sea fluido en móviles */
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/*
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--beige-crema);
+    color: var(--texto);
     height: 100dvh;
     width: 100vw;
     overflow: hidden;
@@ -76,9 +96,10 @@ body {
     max-width: 480px;
     margin: 0 auto;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    /* Importante para contener el pseudo-elemento */
     position: relative;
+    overscroll-behavior-y: contain; /* Cámbialo a 'auto' o bórralo 
 }
+*/
 
 body::before {
     content: "";
