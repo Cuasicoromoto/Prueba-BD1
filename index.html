@@ -186,9 +186,27 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registrado', reg))
+                // 1. Agregamos ?v=1.12 para que GitHub no sirva una versión vieja del archivo sw.js
+                // IMPORTANTE: Cambia este número cada vez que edites el sw.js
+                const swUrl = './sw.js?v=1.12';
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => {
+                        console.log('Service Worker registrado', reg);
+                        
+                        // 2. Forzamos al navegador a buscar actualizaciones en el servidor
+                        reg.update();
+                    })
                     .catch(err => console.log('Error registrando Service Worker', err));
+            });
+
+            // 3. Detectar cuando el nuevo SW toma el control y recargar la página automáticamente
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    window.location.reload();
+                    refreshing = true;
+                }
             });
         }
     </script>
