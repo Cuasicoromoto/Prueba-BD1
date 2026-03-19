@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Coromoto - App Cuasiparroquial</title>
     <meta name="description"
         content="Aplicación oficial de la Cuasiparroquia Nuestra Señora de Coromoto. Avisos, devocionario, horarios y más.">
@@ -23,7 +24,7 @@
     <!-- Cabecera -->
     <header class="cabecera-minimalista">
         <div class="linea"></div>
-        <div><span>Cuasiparroquia (prueba 7)</span>
+        <div><span>Cuasiparroquia</span>
             <h1>Nuestra Señora de Coromoto</h1>
         </div>
     </header>
@@ -163,12 +164,12 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                const swUrl = './sw.js?v=1.20';
+                const swUrl = './sw.js?v=0.01';
 
                 navigator.serviceWorker.register(swUrl)
                     .then(reg => {
                         console.log('Service Worker registrado', reg);
-                        
+
                         // 2. Forzamos al navegador a buscar actualizaciones en el servidor
                         reg.update();
                     })
@@ -185,6 +186,12 @@
             });
         }
     </script>
+
+    <!-- 
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    -->
+
 </body>
 
 </html>
