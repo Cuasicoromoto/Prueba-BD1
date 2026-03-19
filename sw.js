@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coromoto-cache-v1.15'; // Recuerda subir este número
+const CACHE_NAME = 'coromoto-cache-v1.16'; // Recuerda subir este número
 const urlsToCache = [
     './',
     './index.html',
