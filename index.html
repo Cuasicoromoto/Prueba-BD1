@@ -23,7 +23,7 @@
     <!-- Cabecera -->
     <header class="cabecera-minimalista">
         <div class="linea"></div>
-        <div><span>Cuasiparroquia (prueba 6)</span>
+        <div><span>Cuasiparroquia (prueba 7)</span>
             <h1>Nuestra Señora de Coromoto</h1>
         </div>
     </header>
@@ -43,30 +43,7 @@
                     <span class="material-icons-round" aria-hidden="true">calendar_today</span>
                     <time datetime="2026-02-14">Dom 29 MAR - Dom 05 ABR</time>
                 </div>
-
-                <!--
-                <div class="meta-item">
-                    <span class="material-icons-round" aria-hidden="true">schedule</span>
-                    <span>09:00 PM</span>
-                </div>
-                -->
-
             </div>
-
-            <!--
-            <h2>Vigilia Pascual 2026</h2>
-            <p>Celebramos la victoria definitiva de Jesús sobre la muerte. En esta "Madre de todas las vigilias", es una noche de bendición del fuego y el agua, renovamos nuestras promesas bautismales y recibimos la luz del Cirio Pascual. Únete a la Cuasiparroquia para vivir el triunfo del Amor.</p>
-            <div class="noticia-meta">
-                <div class="meta-item">
-                    <span class="material-icons-round" aria-hidden="true">calendar_today</span>
-                    <time datetime="2026-02-14">Sáb 04 ABR</time>
-                </div>
-                <div class="meta-item">
-                    <span class="material-icons-round" aria-hidden="true">schedule</span>
-                    <span>09:00 PM</span>
-                </div>
-            </div>
-            -->
         </div>
 
         <!-- 3. Rejilla de botones 2x2 -->
@@ -186,9 +163,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // 1. Agregamos ?v=1.12 para que GitHub no sirva una versión vieja del archivo sw.js
-                // IMPORTANTE: Cambia este número cada vez que edites el sw.js
-                const swUrl = './sw.js?v=1.12';
+                const swUrl = './sw.js?v=1.20';
 
                 navigator.serviceWorker.register(swUrl)
                     .then(reg => {
