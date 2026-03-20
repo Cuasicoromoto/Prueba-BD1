@@ -31,6 +31,7 @@ const COMUNES = {
     cierre: `<br><h3>Jaculatoria final</h3> <p class="jaculatoria">Ave María Purísima. <br><i>Sin pecado original concebida.</i></p>`
 };
 
+
 const oracionesTexto = {
     '<!-- Oraciones cotidianas -->': ``,
     'Señal de la Cruz': `<p>Por la señal de la Santa Cruz <br>de nuestros enemigos <br>líbranos Señor, Dios nuestro. <br><br>En el nombre del Padre, <br>y del Hijo, <br>y del Espíritu Santo.</p>`,
