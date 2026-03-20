@@ -64,6 +64,10 @@
     padding: 0;
 }
 
+html {
+    overscroll-behavior-y: none;
+}
+
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     background-color: var(--beige-crema);
