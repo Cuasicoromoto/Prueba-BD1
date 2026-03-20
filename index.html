@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Coromoto - App Cuasiparroquial</title>
     <meta name="description"
         content="Aplicación oficial de la Cuasiparroquia Nuestra Señora de Coromoto. Avisos, devocionario, horarios y más.">
@@ -23,7 +23,7 @@
     <!-- Cabecera -->
     <header class="cabecera-minimalista">
         <div class="linea"></div>
-        <div><span>Cuasiparroquia</span>
+        <div><span>Cuasiparroquia 1</span>
             <h1>Nuestra Señora de Coromoto</h1>
         </div>
     </header>
@@ -33,17 +33,15 @@
         <div class="tarjeta-principal" data-abrir-panel="Avisos Cuasiparroquiales">
             <span class="material-icons-round icono-maximizar">open_in_full</span>
             <span class="badge-noticia">Avisos Cuasiparroquiales</span>
-            <h2>Año especial de San Francisco de Asís</h2>
-            <p>¡Obtén indulgencia plenaria! Participa en la misa inaugural del <b>Año especial de San Francisco</b> en
-                la Parroquia San Juan Bautista en Carrizal: confesado, comulga y pide por las intenciones del Papa.</p>
+
+            <h2>Semana Santa 2026</h2>
+            <p>Te invitamos a recorrer juntos los días más sagrados de nuestra fe. Acompañemos a Jesús desde su entrada
+                triunfal en Jerusalén hasta el gozo de la tumba vacía. Es momento de renovar el corazón y caminar en
+                comunidad hacia la Pascua.</p>
             <div class="noticia-meta">
                 <div class="meta-item">
                     <span class="material-icons-round" aria-hidden="true">calendar_today</span>
-                    <time datetime="2026-02-14">Sáb 14 FEB</time>
-                </div>
-                <div class="meta-item">
-                    <span class="material-icons-round" aria-hidden="true">schedule</span>
-                    <span>10:30 AM</span>
+                    <time datetime="2026-02-14">Dom 29 MAR - Dom 05 ABR</time>
                 </div>
             </div>
         </div>
@@ -165,12 +163,34 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registrado', reg))
+                const swUrl = './sw.js?v=0.020';
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => {
+                        console.log('Service Worker registrado', reg);
+
+                        // 2. Forzamos al navegador a buscar actualizaciones en el servidor
+                        reg.update();
+                    })
                     .catch(err => console.log('Error registrando Service Worker', err));
+            });
+
+            // 3. Detectar cuando el nuevo SW toma el control y recargar la página automáticamente
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    window.location.reload();
+                    refreshing = true;
+                }
             });
         }
     </script>
+
+    <!-- 
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    -->
+
 </body>
 
 </html>
