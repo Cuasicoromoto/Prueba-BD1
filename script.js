@@ -31,204 +31,14 @@ const COMUNES = {
     cierre: `<br><h3>Jaculatoria final</h3> <p class="jaculatoria">Ave María Purísima. <br><i>Sin pecado original concebida.</i></p>`
 };
 
+let oracionesDinamicas = {};
+
 const oracionesTexto = {
     '<!-- Oraciones cotidianas -->': ``,
-    'Señal de la Cruz': `<p>Por la señal de la Santa Cruz <br>de nuestros enemigos <br>líbranos Señor, Dios nuestro. <br><br>En el nombre del Padre, <br>y del Hijo, <br>y del Espíritu Santo.</p>`,
-    'Padre nuestro': `<p>Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo.<br><br>Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal.</p>`,
-    'Avemaría': `<p>Dios te salve, María, llena eres de gracia; el Señor es contigo. Bendita Tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús.<br><br>Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte.</p>`,
-    'Gloria': `<p>Gloria al Padre, <br>y al Hijo, <br>y al Espíritu Santo.<br><br>Como era en el principio, <br>ahora y siempre, <br>por los siglos de los siglos.</p>`,
-    'Yo Confieso': `<p>Yo confieso ante Dios Todopoderoso, y ante ustedes hermanos que he pecado mucho de pensamiento, palabra, obra y omisión.<br><br>Por mi culpa, por mi culpa, por mi gran culpa.<br><br>Por eso ruego a Santa María siempre Virgen, a los ángeles, a los santos y a ustedes hermanos, que intercedan por mí ante Dios, Nuestro Señor.</p>`,
-    'Acto de Contrición': `<p>Jesús, mi Señor y Redentor: Yo me arrepiento de todos los pecados que he cometido hasta hoy, y me pesa de todo corazón, porque con ellos he ofendido a un Dios tan bueno.<br><br>Propongo firmemente no volver a pecar, y confío en que, por tu infinita misericordia, me has de conceder el perdón de mis culpas y me has de llevar a la vida eterna.</p>`,
-    'Credo': `<p>Creo en Dios, Padre Todopoderoso, Creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, Nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de Santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado, descendió a los infiernos, al tercer día resucitó de entre los muertos, subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos.<br><br>Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna.</p>`,
-    'Salve': `<p>Dios te salve, Reina y Madre de misericordia, vida, dulzura y esperanza nuestra; Dios te salve. A Ti llamamos los desterrados hijos de Eva; a Ti suspiramos, gimiendo y llorando, en este valle de lágrimas. <br><br>Ea, pues, Señora, abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos; y después de este destierro muéstranos a Jesús, fruto bendito de tu vientre. <br><br>¡Oh clementísima, oh piadosa, <br>oh dulce Virgen María! <br><br>Ruega por nosotros Santa Madre de Dios, para que seamos dignos de alcanzar las promesas de Nuestro Señor Jesucristo.</p>`,
-
     '<!-- Oraciones varias -->': ``,
-    'Ángel de la guarda': `<p>Angel de mi guarda, <br>dulce compañía <br> no me desampares <br> ni de noche ni de día, <br>no me dejes solo <br>pues sin ti me perdería.</p>`,
-    'Alma de Cristo': `<p class="jaculatoria texto-normal">Alma de Cristo, <br><i>santifícame.</i> <br><br>Cuerpo de Cristo, <br><i>sálvame.</i> <br><br>Sangre de Cristo, <br><i>embriágame.</i> <br><br>Agua del costado de Cristo, <br><i>lávame.</i> <br><br>Pasión de Cristo, <br><i>confórtame. </i> <br><br>¡Oh, buen Jesús! <br><i>óyeme.</i> <br><br>Dentro de tus llagas, <br><i>escóndeme. </i> <br><br>No permitas Señor, <br><i>que me aparte de Ti.</i> <br><br>Del enemigo malo, <br><i>defiéndeme. </i> <br><br>En la hora de mi muerte, <br><i>llámame, </i> <br><br>Y mándame ir a Ti <br><i>para que con tus Santos te alaben por los siglos de los siglos.</i> <br><br>Amén.</p>`,
-    'Angelus': `<p class="jaculatoria texto-normal"><b>V.</b> El ángel del Señor anunció a María. <br><b>R.</b> <i>Y concibió por obra y gracia del Espíritu Santo.</i></p> <br><p>Dios te salve, María...</p><br> <p class="jaculatoria"><b>V.</b> He aquí la esclava del Señor. <br><b>R.</b> <i>Hágase en mí según tu palabra.</i></p> <br><p>Dios te salve, María...</p><br><p class="jaculatoria"><b>V.</b> Y el Verbo se hizo carne. <br><b>R.</b> <i>Y habitó entre nosotros.</i> </p><br><p>Dios te salve, María...</p><br><p class="jaculatoria"><b>V.</b> Ruega por nosotros, santa Madre de Dios. <br><b>R.</b> <i>Para que seamos dignos de alcanzar las divinas promesas de Nuestro Señor Jesucristo.</i></p><br><p><b>V.</b> Infunde, Señor, tu gracia en nuestras almas, para que los que por el anuncio del ángel hemos conocido la Encarnación de tu Hijo Jesucristo, por los méritos de su Pasión y su Cruz lleguemos a la gloria de la Resurrección. Por el mismo Jesucristo, nuestro Señor. <br><br><b>R.</b> <i>Amén.</i> <br><br>Gloria al Padre... (tres veces)</p>`,
-    'Acuérdate': `<p>Acuérdate, oh piadosísima Virgen María, que jamás se ha oído decir que ninguno de los que han acudido a tu protección, implorando tu asistencia y reclamando tu socorro, haya sido abandonado de ti.<br><br>Animado con esta contianza, a ti también acudo, oh Madre, Virgen de las vírgenes, aunque gimiendo bajo el peso de mis pecados, me atrevo a comparecer ante tu presencia soberana.<br><br>No deseches mis humildes súplicas, oh Madre del Verbo divino, antes bien, escúchalas y acógelas benignamente. <br><br>Amén.</p>`,
-    'Tu pureza': `<p>Bendita sea tu pureza <br>y eternamente lo sea, <br>pues todo un Dios se recrea <br>en tan graciosa belleza. <br><br>A ti, celestial princesa, <br>Virgen Sagrada María, <br>te ofrezco en este día <br>alma, vida y corazón. <br><br>Mírame con compasión <br>y no me dejes, madre mía.`,
-    'A la Sagrada Familia': `<p>JESÚS, Hijo de Dios e Hijo de María, bendice a nuestra familia. Inspira bondadosamente en nosotros la unidad, la paz y el amor mutuo que tú encontraste en Tu propia familia en la pequeña aldea de Nazaret. <br><br>MARÍA, Madre de Jesús y Nuestra Madre, sustenta a nuestra familia con tu fe y tu amor. Consérvanos cerca de tu Hijo, Jesús, en todas nuestras alegrías y en nuestras penas. <br><br>JOSÉ, Padre adoptivo de Jesús, guardián y esposo de María, protege a nuestra familia del peligro. Auxílianos en todos los momentos de desánimo y ansiedad. <br><br>SAGRADA FAMILIA DE NAZARET, haz a nuestra familia una contigo. Ayúdanos a ser instrumentos de paz. Concédenos que el amor, fortalecido por la gracia, pruebe ser más fuerte que las debilidades y las pruebas que nuestra familia a veces atraviesa. Que siempre tengamos a Dios en el centro de nuestros corazones y hogares hasta que todos seamos una sola familia, feliz y en paz en nuestro verdadero hogar contigo. <br><br>Amén.</p>`,
-    'A San José': `
-        <h3>1. Custodio del Redentor</h3><p class="texto-normal">Salve, custodio del Redentor<br>y esposo de la Virgen María.<br><br>A ti Dios confió a su Hijo,<br>en ti María depositó su confianza,<br>contigo Cristo se forjó como hombre.<br><br>Oh, bienaventurado José,<br>muéstrate padre también a nosotros<br>y guíanos en el camino de la vida.<br><br>Concédenos gracia, <br>misericordia y valentía,<br>y defiéndenos de todo mal. Amén.</p>
-        <br><h3>2. Custodio y padre</h3><p>Custodio y padre de vírgenes, San José, a cuya fiel custodia fueron encomendadas la misma inocencia. Cristo Jesús y la Virgen de las vírgenes María: por estas dos queridísimas prendas, Jesús y María, te ruego y te suplico me alcances que, preservado de toda impureza, sirva siempre con alma limpia, corazón puro y cuerpo casto a Jesús y a María. Amén.</p>
-        <br><h3>3. Glorioso patriarca San José</h3><p>Glorioso patriarca san José,cuyo poder sabe hacer posibles las cosas imposibles,ven en mi ayuda en estos momentos de angustia y dificultad.<br><br>Toma bajo tu protección las situaciones tan graves y difíciles que te confío,para que tengan una buena solución.<br><br>Mi amado Padre, toda mi confianza está puesta en ti.Que no se diga que te haya invocado en vano y,como puedes hacer todo con Jesús y María,muéstrame que tu bondad es tan grande como tu poder. Amén.</p> `,
-    'Benedictus': `<p>Bendito sea el Señor, Dios de Israel, porque ha visitado y redimido a su pueblo, suscitándonos una fuerza de salvación en la casa de David, su siervo, según lo había predicho desde antiguo por boca de sus santos Profetas.<br><br>Es la salvación que nos libra de nuestros enemigos y de la mano de todos los que nos odian, realizando la misericordia que tuvo con nuestros padres, recordando su santa alianza y el juramento que juró a nuestro padre Abrahán.<br><br>Para concedernos que, libres de temor, arrancados de la mano de los enemigos, le sirvamos con santidad y justicia, en su presencia, todos nuestros días.<br><br>Y a ti, niño, te llamarán profeta del Altísimo, porque irás delante del Señor a preparar sus caminos, anunciando a su pueblo la salvación, el perdón de sus pecados.<br><br>Por la entrañable misericordia de nuestro Dios, nos visitará el sol que nace de lo alto, para iluminar a los que viven en tinieblas y en sombra de muerte, para guiar nuestros pasos por el camino de la paz.<br><br>Gloria al Padre, y al Hijo, y al Espíritu Santo. Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.</p>`,
-    'Magnificat': `<p>Proclama mi alma la grandeza del Señor, se alegra mi espíritu en Dios, mi salvador; porque ha mirado la humildad de su esclava.<br><br>Desde ahora me felicitarán todas las generaciones, porque el Poderoso ha hecho obras grandes en mí: su nombre es santo, y su misericordia llega a sus fieles de generación en generación.<br><br>Él hace proezas con su brazo: dispersa a los soberbios de corazón, derriba del trono a los poderosos y enaltece a los humildes, a los hambrientos los colma de bienes y a los ricos los despide vacíos.<br><br>Auxilia a Israel, su siervo, acordándose de la misericordia -como lo había prometido a nuestros padres- en favor de Abrahán y su descendencia por siempre.<br><br>Gloria al Padre, y al Hijo, y al Espíritu Santo. Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.</p>`,
-    'Corazón de Jesús': `<h3>Acto de confianza en el Corazón de Jesús</h3><p>Oh, Corazón de Jesús, Dios y hombre verdadero, refugio de los pecadores y esperanza de los que en ti confían. Tú nos dices amablemente: Venid a mí que soy manso y humilde de corazón; y nos repites las palabras que dijiste al paralítico: Confía, hijo mío; tus pecados te son perdonados; y a la mujer enferma: Confía, hija; tu fe te ha salvado; y a los apóstoles: Confiad, soy yo; no temáis.<br><br>Animado con estas palabras tuyas, acudo a ti con el corazón lleno de confianza, para decirte sinceramente y desde lo más íntimo de mi alma: Corazón de Jesús, en tí confío.</p><br><p class="jaculatoria">En mis alegrías y tristezas, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En mis negocios y empresas, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En mis prosperidades y adversidades, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En las necesidades de mi familia, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En las tentaciones del demonio, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En las instigaciones de mis propias pasiones, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En las persecuciones de mis enemigos, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En las murmuraciones y calumnias, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En mis enfermedades y dolores, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En mis defectos y pecados, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En la santificación y salvación de mi alma, <br><i>Corazón de Jesús, en tí confío.</i><br><br>Siempre y en toda ocasión, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En vida y en muerte, <br><i>Corazón de Jesús, en tí confío.</i><br><br>En tiempo y eternidad, <br><i>Corazón de Jesús, en tí confío.</i></p><br><h3>Oración</h3><p>Corazón de mi amable Jesús, confío y confiaré siempre en tu bondad; y, por el corazón de tu Madre, te pido que no desfallezca nunca esta mi confianza en ti, a pesar de todas las contrariedades y de todas las pruebas que tú quieras enviarme, para que, habiendo sido mi consuelo en vida, seas mi refugio en la hora de la muerte y mi gloria por toda la eternidad. <br><br>Amén.</p>`,
-    'A San Miguel Arcángel': `<p>San Miguel Arcángel, defiéndenos en la batalla.<br><br>Sé nuestro amparo contra la perversidad y las acechanzas del demonio. <br><br>Que Dios ejerza su dominio sobre él, te lo pedimos humildemente; y tú, Príncipe de la Milicia Celestial, con el poder que Dios te ha conferido, arroja al infierno a Satanás y a los otros espíritus malignos que vagan por el mundo buscando la ruina de las almas. <br><br>Amén.</p>`,
-    'Letanías de San José': `
-        <h3>Letanías de San José </h3>
-        <p class="jaculatoria texto-normal">Señor, ten misericordia de nosotros. <br><i>Señor, ten misericordia de nosotros.</i>
-        <br><br>Cristo, ten misericordia de nosotros. <br><i>Cristo, ten misericordia de nosotros.</i>
-        <br><br>Señor, ten misericordia de nosotros. <br><i> Señor, ten misericordia de nosotros.</i>
-        <br><br>Cristo óyenos. <br><i> Cristo óyenos.</i>
-        <br><br>Cristo escúchanos. <br><i> Cristo escúchanos.</i></p>
-        <br><p><i>(Ten misericordia de nosotros)</i></p> 
-        <p class="jaculatoria">Dios, Padre celestial, <br>Dios, Hijo, Redentor del mundo, <br>Dios, Espíritu Santo, <br>Santísima Trinidad, un solo Dios,</p>         
-        <br><p><i>(Ruega por nosotros)</i></p> 
-        <p class="jaculatoria">Santa María,
-        <br>San José,<br>Ilustre descendiente de David, <br>Luz de los Patriarcas, <br>Esposo de la Madre de Dios, <br>Casto guardián de la Virgen, <br>Padre nutricio del Hijo de Dios, <br>Celoso defensor de Cristo, <br>Jefe de la Sagrada Familia, <br>José, justísimo, <br>José, castísimo, <br>José, prudentísimo, <br>José, valentísimo, <br>José, fidelísimo, <br>Espejo de paciencia, <br>Amante de la pobreza, <br>Modelo de trabajadores, <br>Gloria de la vida doméstica, <br>Custodio de Vírgenes, <br>Sostén de las familias, <br>Consuelo de los desgraciados, <br>Esperanza de los enfermos, <br>Patrón de los moribundos, <br>Terror de los demonios, <br>Protector de la Santa Iglesia, 
-<br><br>Cordero de Dios, que quitas los pecados del mundo, <br><i>perdónanos, Señor.</i>
-<br><br>Cordero de Dios, que quitas los pecados del mundo, <br><i>escúchanos, Señor,</i>
-<br><br>Cordero de Dios, que quitas los pecados del mundo, <br><i>ten misericordia de nosotros.</i></p>
-<br><p><i>V.</i> Le estableció señor de su casa.
-<br><i>R.</i> Y jefe de toda su hacienda.
- 
-<br><br><i>Oremos:</i> Oh Dios, que en tu inefable providencia, te dignaste elegir a San José por Esposo de tu Santísima Madre: concédenos, te rogamos, que merezcamos tener por intercesor en el cielo al que veneramos como protector en la tierra. Tú que vives y reinas por los siglos de los siglos.</p> `,
-
     '<!-- Novenas -->': ``,
-    'Novena a la Virgen de Coromoto': `
-        <p class="texto-normal">Por la señal de la Santa Cruz...</p>
-        <br><h3>Acto de Contrición</h3>
-        <p>Jesús, mi Señor y Redentor: Yo me arrepiento de todos los pecados que he cometido hasta hoy, y me pesa de todo corazón, porque con ellos he ofendido a un Dios tan bueno.
-
-Propongo firmemente no volver a pecar, y confío en que, por tu infinita misericordia, me has de conceder el perdón de mis culpas y me has de llevar a la vida eterna. Amén.</p>
-        <br><h3>Oración Inicial</h3>
-        <p>Virgen Santísima, Madre de Dios y Madre nuestra, por cuya intercesión poderosa llegaron al conocimiento de la fe cristiana. Hermosísima Aurora, que brillaste apareciendo en Coromoto y nos dejaste una preciosa prenda de Tu amor, en una milagrosa Imagen, apiádate de nosotros. Alivia nuestros males, poderosísima Abogada nuestra y fortalécenos en las luchas contra los enemigos del alma.
-        <br><br>¡Oh Patrona de Venezuela! Haz que nuestra Nación siga siempre en sus leyes, en sus costumbres y en sus empresas, los sabios y salvadores principios del Santo Evangelio. Protege nuestras instituciones, destierra de nosotros el vicio, la impiedad e indiferencia religiosa; en una palabra, renueva la fe en nuestra amada Patria. Promueve en nuestra sociedad obras verificadoras de salud, adelanto moral y material, para que gozando de los beneficios de una paz tranquila honremos y sirvamos fielmente en la tierra a Tu Divino Hijo Jesucristo, a fin de gozarle eternamente en el Cielo. Amén.</p>
-        <br><p class="jaculatoria"><b>V.</b> Hazme, Virgen Sagrada, digno de alabanza. <br><b>R.</b> <i>Dame fortaleza contra tus enemigos.</i></p>
-        <br><h3>Oración del día</h3>
-        <!-- Barra de Navegación de Días -->
-        <div class="novena-nav">
-            <button class="btn-dia" onclick="cargarDiaNovena(0, 'coromoto')">1</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(1, 'coromoto')">2</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(2, 'coromoto')">3</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(3, 'coromoto')">4</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(4, 'coromoto')">5</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(5, 'coromoto')">6</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(6, 'coromoto')">7</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(7, 'coromoto')">8</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(8, 'coromoto')">9</button>
-        </div>
-
-        <!-- Contenedor dinámico -->
-        <div id="contenido-novena" class="contenido-dia-box">
-            <p style="color:var(--texto-gris); text-align:center; padding: 1rem 0;">
-                Selecciona el día de la novena <br> para ver la reflexión.
-            </p>
-        </div>
-        <br><div style="text-align: center"><p class="texto-normal"><i>(Pídase con fervor y confianza <br>la gracia que se desea obtener.)</i></p></div>
-        <br><p>Dios te salve Reina y Madre de misericordia...</p>
-        <br><h3>Oración final</h3>
-        <p>Oh Gran Dios, que con darnos en Tu Nacimiento a María, obra de tu Omnipotencia, maravilla de la gracia, admiración de los ángeles, honra y alegría de los hombres, escogida entre millares por feliz Madre tuya, y constituida por dulce Madre nuestra, nos dejaste con dádiva tan rica, muy obligados a tu amor; y más, renaciendo en cierto modo para nosotros con su maravillosa Aparición en Coromoto, el m ismo día que celebra su natalicio santo.
-        <br><br>Mil gracias, Señor, te repetimos, suplicándote fortalezcas nuestra memoria para no olvidar tan altos beneficios, alumbres nuestro entendimiento para reconocerlos y admirarlos; enciendas de amor nuestra voluntad para en obras de amor corresponderlos, acabando la vida en tu servicio con el favor de tu gracia, para gozar de tu Gloria. Amén.</p>     
-        <br><p class="jaculatoria">Jesús, José y María <br><i>les doy mi corazón y el alma mía.</i> <br><br>Jesús, José y María <br><i>asístanme en mi última agonía.</i> <br><br>Jesús, José y María <br><i>con ustedes descanse en paz el alma mía.</i>
-        <br><br><ul><li>12 Avemarías.</li> <li>3 Padrenuestro.</li> <li>Señal de la Santa Cruz.</li></ul>`,
-
-    'Novena a San José': `
-        <p class="texto-normal">Por la señal de la Santa Cruz...</p>
-        <br><h3>Oración inicial</h3>
-        <p>Oh gloriosísimo Padre de Jesús, Esposo de María. Patriarca y Protector de la Santa Iglesia, a quien el Padre Eterno confió el cuidado de gobernar, regir y defender en la tierra la Sagrada Familia; protégenos también a nosotros, que pertenecemos, como fieles católicos, a la santa familia de tu Hijo que es la Iglesia, y alcánzanos los bienes necesarios de esta vida, y sobre todo los auxilios espirituales para la vida eterna. <br><br>Alcánzanos especialmente estas tres gracias, la de no cometer jamás ningún pecado mortal, principalmente contra la castidad; la de un sincero amor y devoción a Jesús y María, y la de una buena muerte, recibiendo bien los últimos Sacramentos. <br><br>Concédenos además la gracia especial que te pedimos cada uno en esta novena.</p>
-        <br><div style="text-align: center"><p class="texto-normal"><i>(Pídase con fervor y confianza <br>la gracia que se desea obtener.)</i></p></div>
-        <br><h3>Oración del día</h3>
-        <!-- Barra de Navegación de Días -->
-        <div class="novena-nav">
-            <button class="btn-dia" onclick="cargarDiaNovena(0, 'sanjose')">1</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(1, 'sanjose')">2</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(2, 'sanjose')">3</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(3, 'sanjose')">4</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(4, 'sanjose')">5</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(5, 'sanjose')">6</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(6, 'sanjose')">7</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(7, 'sanjose')">8</button>
-            <button class="btn-dia" onclick="cargarDiaNovena(8, 'sanjose')">9</button>
-        </div>
-        <!-- Contenedor dinámico -->
-        <div id="contenido-novena" class="contenido-dia-box">
-            <p style="color:var(--texto-gris); text-align:center; padding: 1rem 0;">
-                Selecciona el día de la novena <br> para ver la reflexión.
-            </p>
-        </div>
-        <br><br><h3>Oración para todos los días</h3>
-        <p>Oh custodio y padre de Vírgenes San José a cuya fiel custodia fueron encomendadas la misma inocencia de Cristo Jesús y la Virgen de las vírgenes María; por estas dos queridísimas prendas Jesús y María, te ruego y suplico me alcances, que preservado yo de toda impureza, sirva siempre castísimamente con alma limpia, corazón puro y cuerpo casto a Jesús y a María. Amén.
-        <br><br><p class="jaculatoria">Jesús José y María <br><i>les doy mi corazón y el alma mía.</i> <br><br>Jesús, José y María <br><i>asístanme en mi última agonía.</i> <br><br>Jesús, José y María <br><i>con ustedes descanse en paz el alma mía.</i>
-        <br><br><i>(Padrenuestro, Avemaría y Gloria.)</i></p>
-        <br><h3>Antífona</h3>
-        <p>Tenía el mismo Jesús, al empezar su vida pública, cerca de treinta años, hijo, según se pensaba de José.
-        <br><br><b>V.</b> San José, ruega por nosotros.
-        <br><b>R.</b> <i>Para que seamos dignos de alcanzar las promesas de Nuestro Señor Jesucristo.</i></p>
-        <br><h3>Oración final</h3>
-        <p>Oh Dios que con inefable providencia te dignaste escoger al bienaventurado José por Esposo de tu Madre Santísima; concédenos que, pues le veneramos como protector en la tierra, merezcamos tenerle como protector en los cielos. Oh Dios que vives y reinas en los siglos de los siglos. <br><br>Amén.</p>`,
-
     '<!-- Coronillas -->': ``,
-    'Coronilla de San José': `
-        <p class="texto-normal">Por la señal de la Santa Cruz...</p>
-        <br><h3>Acto de Contrición</h3>
-        <p>Jesús, mi Señor y Redentor: Yo me arrepiento de todos los pecados que he cometido hasta hoy, y me pesa de todo corazón, porque con ellos he ofendido a un Dios tan bueno. Propongo firmemente no volver a pecar, y confío en que, por tu infinita misericordia, me has de conceder el perdón de mis culpas y me has de llevar a la vida eterna. Amén.</p>
-        <br><h3>Credo</h3>
-        <p>Creo en Dios, Padre Todopoderoso, Creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, Nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de Santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado, descendió a los infiernos, al tercer día resucitó de entre los muertos, subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos. <br><br>Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna. Amén.</p>
-        <br><h3>Primer misterio:<br>El anuncio del Ángel de que lo concebido en María es obra del Espíritu Santo</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Segundo misterio:<br>La búsqueda de posada en Belén</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Tercer misterio:<br>El nacimiento del Niño Jesús en Belén</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Cuarto misterio:<br>La presentación del Niño Jesús en el templo.</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Quinto misterio:<br>La huída a Egipto con Jesús y María</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Sexto misterio:<br>El regreso de la sagrada familia a Nazaret</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Séptimo misterio:<br>La pérdida y hallazgo del Niño Jesús en el templo</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Octavo misterio:<br>La muerte de San José en brazos de Jesús y de María</h3>
-        <p class="jaculatoria texto-normal"><b>(1 vez)</b><br>Dios te salve José, custodio del Redentor y esposo purísimo de María: Tú eres el hombre justo y obediente a la voluntad del Padre. Bendito el Señor que te confió a sus tesoros Jesús y María.
-        <br><br><b>(7 veces)</b><br>San José, custodio <br>de los sagrados corazones <br>de Jesús y de María,
-        <br><i>inflama mi corazón <br>para que en él sólo reine Jesús, <br>como reinó en tu santo corazón.</i>
-        <br><br><b>(1 vez)</b><br>Jesús, José y María, <br><i>les doy el corazón <br>y el alma mía.</i></p>
-        <br><h3>Jaculatoria final</h3>
-        <p class="jaculatoria"><b>(3 veces)</b><br>San José, patrono <br>de los devotos de los <br>Sagrados Corazones de Jesús y María,
-        <br><i>Ruega por nosotros.</i></p>
-        <br><ul><li>Gloria.</li></ul>`,
-
     '<!-- Del Catecismo -->': ``,
-    'Mandamientos': `<ol class="texto-normal"><li>Amarás a Dios sobre todas las cosas.</li><li>No tomarás el nombre de Dios en vano.</li><li>Santificarás las fiestas.</li><li>Honrarás a tu padre y a tu madre.</li><li>No matarás.</li><li>No cometerás actos impuros.</li><li>No robarás.</li><li>No dirás falso testimonio ni mentirás.</li><li>No consentirás pensamientos ni deseos impuros.</li><li>No codiciarás los bienes ajenos.</li></ol>`,
-    'Sacramentos': `<h3 class="texto-normal">De iniciación:</h3><ul class="texto-normal"><li>Bautismo.</li><li>Comunión.</li><li>Confirmación.</li></ul><br><h3 class="texto-normal">De sanación:</h3><ul class="texto-normal"><li>Confesión.</li><li>Unción de los enfermos.</li></ul><br><h3 class="texto-normal">De vocación:</h3><ul class="texto-normal"><li>Orden Sagrado.</li><li>Matrimonio.</li></ul>`,
-    'Obras de Misericordia Corporales': `<ol class="texto-normal"><li>Visitar y cuidar a los enfermos.</li> <br><li>Dar de comer al hambriento.</li> <br><li>Dar de beber al sediento.</li> <br><li>Dar posada al peregrino.</li> <br><li>Vestir al desnudo.</li> <br><li>Visitar a los presos.</li> <br><li>Enterrar a los difuntos.</li>`,
-    'Obras de Misericordia Espirituales': `<ol class="texto-normal"><li>Enseñar al que no sabe.</li> <br><li>Corregir al que se equivoca.</li> <br><li>Dar buen consejo al que lo necesita.</li> <br><li>Perdonar las injurias.</li> <br><li>Consolar al triste.</li> <br><li>Sufrir con paciencia los defectos del prójimo.</li> <br><li>Rogar a Dios por los vivos y difuntos.</li>`,
-    'Preparación para la confesión': `
-        <ol class="texto-normal"><li><b>Examen de conciencia:</b> consiste en recordar todos los pecados que hemos cometido desde la última confesión.</li>
-        <br><li><b>Arrepentimiento:</b> consiste en sentir sincero dolor de haber ofendido a Dios; y detestar el pecado. Para alcanzar el arrepentimiento hay que pedírselo a Dios.</li>
-        <br><li><b>Propósito de la enmienda:</b> consiste en decidirse firmemente a no volver a pecar; en estar dispuestos a evitar el pecado, cueste lo que cueste.</li>
-        <br><li><b>Confesión:</b> consiste en decirle al Sacerdote todos los pecados que hemos descubierto en el examen de conciencia.</li>
-        <br><li><b>Cumplir la penitencia:</b> cumplir aquello que nos señala el confesor para reparar el daño del pecado que ha sido perdonado.</li></ol>`,
-    'Los cinco mandamientos de la Iglesia': `
-        <ol class="texto-normal"><li><b>Oír misa entera los domingos y fiestas de precepto:</b> exige a los fieles participar en la celebración eucarística, en la que se reúne la comunidad cristiana, el día en que conmemora la Resurrección del Señor, y en aquellas principales fiestas litúrgicas que conmemoran los misterios del Señor, la Virgen María y los santos.</li>                 
-        <br><li><b>Confesar los pecados mortales al menos una vez al año, en peligro de muerte, y si se ha de comulgar:</b> asegura la preparación para la Eucaristía mediante la recepción del sacramento de la Reconciliación, que continúa la obra de conversión y de perdón del Bautismo.</li>
-        <br><li><b>Comulgar por Pascua de Resurrección:</b> garantiza un mínimo en la recepción del Cuerpo y la Sangre del Señor en relación con el tiempo de Pascua, origen y centro de la liturgia cristiana.</li>
-        <br><li><b>Ayunar y abstenerse de comer carne cuando lo manda la Santa Madre Iglesia:</b> asegura los tiempos de ascesis y de penitencia que nos preparan para las fiestas litúrgicas; contribuyen a hacernos adquirir el dominio sobre nuestros instintos y la libertad del corazón.</li>
-        <br><li><b>Ayudar a la Iglesia en sus necesidades:</b> señala la obligación de ayudar, cada uno según su capacidad, a subvenir a las necesidades materiales de la Iglesia.</li></ol>`,
-
-    'Los siete dones del Espíritu Santo': `
-        <ol class="texto-normal"><li><b>Sabiduría:</b> Es el don de entender lo que favorece y lo que perjudica el proyecto de Dios. La verdadera sabiduría trae el gusto de Dios y su Palabra.</li>
-        <br><li><b>Entendimiento:</b> Es el don divino que nos ilumina para aceptar las verdades reveladas por Dios. Mediante este don, el Espíritu Santo nos permite escrutar las profundidades de Dios, comunicando a nuestro corazón una particular participación en el conocimiento divino, en los secretos del mundo y en la intimidad del mismo Dios.</li>
-        <br><li><b>Consejo:</b> Es el don de saber discernir los caminos y las opciones, de saber orientar y escuchar. Es la luz que el Espíritu nos da para distinguir lo correcto e incorrecto, lo verdadero y falso.</li>
-        <br><li><b>Ciencia:</b> Es el don de la ciencia de Dios y no la ciencia del mundo. Por este don el Espíritu Santo nos revela interiormente el pensamiento de Dios sobre nosotros, pues “nadie conoce lo íntimo de Dios, sino el Espíritu de Dios” (1 Corintios 2:11).</li>
-        <br><li><b>Piedad:</b> Es el don que el Espíritu Santo nos da para estar siempre abiertos a la voluntad de Dios, buscando siempre actuar como Jesús actuaría. Si Dios vive su alianza con el hombre de manera tan envolvente, el hombre, a su vez, se siente también invitado a ser piadoso con todos.</li>
-        <br><li><b>Fortaleza:</b> Este es el don que nos vuelve valientes para enfrentar las dificultades del día a día de la vida cristiana. Vuelve fuerte y heróica la fe. Recordemos el valor de los mártires. Nos da perseverancia y firmeza en las decisiones. Los que tienen ese don no se amedrentan frente a las amenazas y persecuciones, pues confían incondicionalmente en el Padre.</li>
-        <br><li><b>Temor de Dios:</b> Este don nos mantiene en el debido respeto frente a Dios y en la sumisión a su voluntad, apartándonos de todo lo que le pueda desagradar.</li></ol>`,
 };
 
 const armarRosario = (misterios) => {
@@ -244,15 +54,11 @@ const armarRosario = (misterios) => {
     html += COMUNES.letanias;
     html += COMUNES.cierre;
     return html;
-}
-    ;
+};
 
 oracionesTexto['Misterios Gozosos'] = armarRosario(['La Encarnación del Hijo de Dios.', 'La Visitación de María Santísima a Santa Isabel.', 'El Nacimiento del Hijo de Dios.', 'La Presentación del Señor Jesús en el templo.', 'La Pérdida y Hallazgo del Niño Jesús en el templo.']);
-
 oracionesTexto['Misterios Luminosos'] = armarRosario(['El Bautismo de Jesús en el Jordán.', 'Las Bodas de Caná.', 'El anuncio del Reino de Dios invitando a la conversión.', 'La Transfiguración.', 'La Institución de la Eucaristía.']);
-
 oracionesTexto['Misterios Dolorosos'] = armarRosario(['La Oración de Jesús en el Huerto.', 'La Flagelación de Nuestro Señor Jesús.', 'La Coronación de espinas.', 'Jesús carga la cruz a cuestas.', 'La Crucifixión y Muerte de Jesús.']);
-
 oracionesTexto['Misterios Gloriosos'] = armarRosario(['La Resurrección del Señor.', 'La Ascensión de Jesús al Cielo.', 'La Venida del Espíritu Santo.', 'La Asunción de María a los Cielos.', 'La Coronación de la Santísima Virgen.']);
 
 const diasNovenaCoromoto = [{
@@ -315,66 +121,6 @@ const diasNovenaSanJose = [{
 
 const datos = {
     'Avisos Cuasiparroquiales': ``,
-    /*
-    <div class="encabezado-mes">Marzo 2026</div>
-    <div class="grupo-timeline">
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>12</b><span>Jue</span></div>
-            <div class="aviso-contenido"><h4>Novena de San José</h4><p><b>Capilla San José - </b>La novena preparatoria de San José es un recorrido de evangelización que realizarán los <i>Amigos de San José</i> desde el sector Clavelito hasta el sector el Mango, en la comunidad de Guaremal, hasta el día de la procesión a la capilla.</p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>19</b><span>Jue</span></div>
-            <div class="aviso-contenido"><h4>Solemnidad de San José</h4><p><b>Capilla San José - </b>Celebración por la solemnidad de San José; patrono de la Iglesia Universal, de la comunidad de Guaremal y de la sede principal de la Cuasiparroquia.</p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>21</b><span>Sáb</span></div>
-            <div style="display: flex; gap: 1rem; flex-direction: column;">
-            <div class="aviso-contenido"><h4>Procesión de San José</h4><p><b>Capilla San José - </b>Procesión en honor a San José como patrono de la comunidad de Guaremal; desde el sector "El Mango" hasta la Capilla San José, a las 6:00PM.</p></div>
-            <div class="aviso-contenido"><h4>Encuentro vicarial de catequistas</h4><p><b>Zona 1 - </b>Procesión en honor a San José como patrono de la comunidad de Guaremal; desde el sector "El Mango" hasta la Capilla San José, a las 6:00PM.</p></div>
-            </div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>22</b><span>Dom</span></div>
-            <div class="aviso-contenido"><h4>Fiesta de San José</h4><p><b>Capilla San José - </b><br><i>• 10:30AM </i> - Actividades recreativas. <br><i>• 12:00PM </i> - Celebración litúrgica.<br><i>• 01:00PM </i> - Sopa.<br><i>• 02:00PM </i> - Bingo.</p></div>
-        </div>
-        
-        <!--
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>28</b><span>Sáb</span></div>
-            <div class="aviso-contenido"><h4>Bendición de Ramos</h4><p><b>Capillas filiales - </b></p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>29</b><span>Dom</span></div>
-            <div class="aviso-contenido"><h4>Domingo de Ramos</h4><p><b>Capilla San José - </b></p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>30</b><span>Lun</span></div>
-            <div class="aviso-contenido"><h4>Misa Crismal</h4><p><b>Santa Iglesia Catedral - </b></p></div>
-        </div>
-    </div>
-    
-    <div class="encabezado-mes">Abril 2026</div>
-    <div class="grupo-timeline">
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>01</b><span>Mié</span></div>
-            <div class="aviso-contenido"><h4>Procesión del Nazareno</h4><p><b>Capillas filiales - </b></p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>05</b><span>Dom</span></div>
-            <div class="aviso-contenido"><h4>Domingo de Resurrección</h4><p>¡Aleluya! Gran fiesta de la Pascua.</p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>04</b><span>Sáb</span></div>
-            <div class="aviso-contenido"><h4>Liturgia Crismal</h4><p><b>Capilla San José - </b></p></div>
-        </div>
-        <div class="aviso-fila">
-            <div class="aviso-fecha"><b>25</b><span>Sáb</span></div>
-            <div class="aviso-contenido"><h4>Ordenación Episcopal</h4><p>Ordenación del presbítero Alberto Castillo</p></div>
-        </div>
-    </div>
-    -->
-`,
-*/
 
     'Horarios': [{
         nombre: 'Capilla Nuestra <br>Señora del Carmen',
@@ -475,6 +221,7 @@ const datos = {
             </div>
         </div>
     `).join(''),
+
     'Apostolados': [{
         nombre: 'Cáritas',
         descripcion: 'Cáritas es el corazón solidario de nuestra Cuasiparroquia. A través de este apostolado buscamos acompañar a los más necesitados, ofreciendo ayuda material, escucha fraterna y esperanza. Cada gesto de servicio es una manera concreta de hacer presente el amor de Cristo en quienes atraviesan momentos difíciles.'
@@ -512,6 +259,7 @@ const datos = {
             </div>
         </div>
     `).join(''),
+
     'Obras': [{
         nombre: 'Ancianato',
         icon: 'elderly',
@@ -546,6 +294,7 @@ const datos = {
             </div>
         </div>
     `).join(''),
+
     'Devocionario': `
         <div class="acordeon">
             <div class="cabecera-acordeon" data-accion="toggle-acordeon">
@@ -653,6 +402,7 @@ const datos = {
             </div>
         </div>
     `,
+
     'Sacramentos': [{
         nombre: 'Bautismo',
         icon: 'water_drop',
@@ -707,6 +457,7 @@ const datos = {
             </div>
         </div>
     `).join(''),
+
     'Apoyar': `
         <div class="caja-info">
             <h4><span class="material-icons-round">payments</span> Pago Móvil</h4>
@@ -745,6 +496,7 @@ const datos = {
             </p>
         </div>
     `,
+
     'Recursos': `
         <div class="caja-info">
             <h4><span class="material-icons-round">link</span> Enlaces de Interés</h4>
@@ -810,22 +562,7 @@ window.cargarDiaNovena = (diaIndex, tipo) => {
         <h4 style="color:var(--vinotinto); margin-bottom:0.5rem;">${diasData[diaIndex].titulo}</h4>
         <p>${diasData[diaIndex].texto}</p>
     `;
-}
-    ;
-
-/*
-function abrirPanel(titulo) {
-    const contenido = datos[titulo];
-    if (!contenido) {
-        console.error(`Contenido no encontrado para el título: ${titulo}`);
-        return;
-    }
-    tituloPanel.innerText = titulo;
-    contenidoPanel.innerHTML = contenido;
-    panel.classList.add('abierto');
-    capaOscura.classList.add('activa');
-}
-*/
+};
 
 async function abrirPanel(titulo) {
     tituloPanel.innerText = titulo;
@@ -850,7 +587,8 @@ function abrirSubPanel(nombre) {
     if (!nombre)
         return;
     subTitulo.innerText = nombre;
-    let texto = oracionesTexto[nombre] || "<p>Texto de la oración próximamente.</p>";
+    /*let texto = oracionesTexto[nombre] || "<p>Texto de la oración próximamente.</p>";*/
+    let texto = oracionesDinamicas[nombre] || oracionesTexto[nombre] || "<p>Descargando oración o no disponible...</p>";
 
     // Eliminamos "Amén" si viene en el texto original (con o sin punto, y opcionalmente seguido de etiquetas de cierre)
     texto = texto.replace(/Amén\.?\s*(<\/p>)?$/i, '$1');
@@ -883,9 +621,6 @@ function cerrarTodo() {
     cerrarPanel();
     cerrarSubPanel();
 }
-
-
-// - - - -
 
 // Mapa para convertir el nombre del mes a número y poder hacer cálculos
 const mesesMapeo = {
@@ -939,30 +674,6 @@ function renderizarAvisos(avisos) {
     let mesActual = '';
     let grupoAbierto = false;
 
-    /*
-    avisosFuturos.forEach(aviso => {
-        if (aviso.mes !== mesActual) {
-            if (grupoAbierto) html += `</div>`; // Cierra el mes anterior
-            html += `<div class="encabezado-mes">${aviso.mes}</div><div class="grupo-timeline">`;
-            mesActual = aviso.mes;
-            grupoAbierto = true;
-        }
-
-        html += `
-            <div class="aviso-fila">
-                <div class="aviso-fecha">
-                    <b>${aviso.dia}</b>
-                    <span>${aviso.diaSemana}</span>
-                </div>
-                <div class="aviso-contenido">
-                    <h4>${aviso.titulo}</h4>
-                    <p>${aviso.lugar ? `<b>${aviso.lugar} - </b>` : ''}${aviso.desc}</p>
-                </div>
-            </div>
-        `;
-    });
-    */
-
     avisosFuturos.forEach(aviso => {
         if (aviso.mes !== mesActual) {
             if (grupoAbierto) html += `</div>`; // Cierra el mes anterior
@@ -995,7 +706,8 @@ function renderizarAvisos(avisos) {
 // Función principal para cargar desde Apps Script
 async function cargarAvisosDesdeAppsScript() {
     // RECUERDA PONER AQUÍ LA URL DE TU SCRIPT
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbw0-_dLWDfhLxXzmkrMBehYj5jL31rNn7CVQ6qsZ_Phvd5ToTzzgEuSUqAPdVwapfC1/exec';
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyWYf7jJAm794SohA8UBj62wjYDur2I2mgLjrL5-mCEjLcs9qq-gtLLc0n9h0xijlzO/exec?tipo=Avisos';
+    /*const webAppUrl = 'https://script.google.com/macros/s/AKfycbw0-_dLWDfhLxXzmkrMBehYj5jL31rNn7CVQ6qsZ_Phvd5ToTzzgEuSUqAPdVwapfC1/exec';*/
 
     // A. Revisamos si hay datos guardados (Ahora guardamos el JSON crudo, no el HTML)
     const avisosGuardados = localStorage.getItem('avisos_cuasiparroquiales_json');
@@ -1031,10 +743,88 @@ async function cargarAvisosDesdeAppsScript() {
     }
 }
 
-// - - - -
+async function cargarAvisosDesdeAppsScript() {
+    // RECUERDA PONER AQUÍ LA URL DE TU SCRIPT
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyWYf7jJAm794SohA8UBj62wjYDur2I2mgLjrL5-mCEjLcs9qq-gtLLc0n9h0xijlzO/exec?tipo=Avisos';
+    /*const webAppUrl = 'https://script.google.com/macros/s/AKfycbw0-_dLWDfhLxXzmkrMBehYj5jL31rNn7CVQ6qsZ_Phvd5ToTzzgEuSUqAPdVwapfC1/exec';*/
 
+    // A. Revisamos si hay datos guardados (Ahora guardamos el JSON crudo, no el HTML)
+    const avisosGuardados = localStorage.getItem('avisos_cuasiparroquiales_json');
+    if (avisosGuardados) {
+        try {
+            const avisos = JSON.parse(avisosGuardados);
+            contenidoPanel.innerHTML = renderizarAvisos(avisos); // Renderiza y oculta los que acaban de expirar
+        } catch (e) {
+            contenidoPanel.innerHTML = '<div style="text-align:center; padding: 20px; font-weight: bold; color: var(--vinotinto);">Cargando avisos...</div>';
+        }
+    } else {
+        contenidoPanel.innerHTML = '<div style="text-align:center; padding: 20px; font-weight: bold; color: var(--vinotinto);">Cargando avisos...</div>';
+    }
+
+    // B. Conexión a internet para buscar eventos nuevos
+    if (navigator.onLine) {
+        try {
+            const response = await fetch(webAppUrl);
+            const avisos = await response.json();
+
+            // C. Refrescamos la pantalla con los nuevos datos filtrados
+            contenidoPanel.innerHTML = renderizarAvisos(avisos);
+
+            // D. Guardamos el JSON crudo para la próxima vez
+            localStorage.setItem('avisos_cuasiparroquiales_json', JSON.stringify(avisos));
+
+        } catch (error) {
+            console.error("Error al cargar desde Google:", error);
+            if (!avisosGuardados) {
+                contenidoPanel.innerHTML = '<div style="text-align:center; padding: 20px; color: #888;">No hay conexión a internet y no hay avisos recientes guardados.</div>';
+            }
+        }
+    }
+}
+
+// Esta función sirve para pedir CUALQUIER pestaña de oraciones a Google Sheets
+async function cargarCategoriaOraciones(categoria) {
+    const webAppUrl = `https://script.google.com/macros/s/AKfycbxebCOoaQsZP9ppnb9GGCkZHgs2062fdQtTNoN0I2OLEWLYBKWcrumgM7OjhBBMKRb6/exec?tipo=${categoria}`;
+
+    // 1. Cargar desde la memoria local (offline) SOLO si la variable está vacía
+    if (Object.keys(oracionesDinamicas).length === 0) {
+        const oracionesGuardadas = localStorage.getItem('oraciones_cuasiparroquia_json');
+        if (oracionesGuardadas) {
+            try {
+                oracionesDinamicas = JSON.parse(oracionesGuardadas);
+            } catch (e) { console.error("Error leyendo oraciones locales"); }
+        }
+    }
+
+    // 2. Intentar actualizar desde internet en segundo plano
+    if (navigator.onLine) {
+        try {
+            const response = await fetch(webAppUrl);
+            const data = await response.json();
+
+            // En lugar de crear un objeto nuevo, AGREGAMOS las oraciones a la caja general
+            data.forEach(item => {
+                if (item.nombre) {
+                    oracionesDinamicas[item.nombre.trim()] = item.texto;
+                }
+            });
+
+            // Actualizamos el LocalStorage con TODAS las oraciones combinadas
+            localStorage.setItem('oraciones_cuasiparroquia_json', JSON.stringify(oracionesDinamicas));
+
+        } catch (error) {
+            console.error(`Error al actualizar la categoría ${categoria}:`, error);
+        }
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cargar oraciones en segundo plano
+    cargarCategoriaOraciones('OracionesCotidianas');
+    cargarCategoriaOraciones('OracionesVarias');
+    cargarCategoriaOraciones('Novenas');
+    cargarCategoriaOraciones('Coronillas');
+    cargarCategoriaOraciones('DelCatecismo');
 
     document.querySelectorAll('[data-abrir-panel]').forEach(el => {
         el.addEventListener('click', () => {
